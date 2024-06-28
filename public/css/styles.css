@@ -1,0 +1,341 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    color: white;
+    background-color: rgb(5, 5, 10);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#header {
+    background-color: rgb(5, 5, 10);
+    width: 100%;
+    height: 80px;
+    padding: 0px;
+}
+#header .navbar {
+    width: 100%;
+    padding: 0px;
+}
+.container-fluid {
+    z-index: 1;
+}
+.container-fluid .navbar-collapse ul {
+    background-color: rgb(5, 5, 10);
+    border-radius: 10px;
+}
+.navbar-collapse .navbar-nav {
+    padding-left: 6px;
+}
+.heading {
+    padding: 0px 5px;
+}
+.navbar-collapse {
+    z-index: 1;
+}
+#mainPage {
+    width: 100%;
+    background-color: rgb(5, 5, 10);
+}
+.page {
+    padding: 10px 45px;
+    margin: 10px 0px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    border-radius: 5px;
+}
+.page.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.pageOne {
+    background-color: rgb(5,5,10);
+    /*height: calc(100vh - 150px);*/
+    width: 100%;
+    padding: 0px;
+}
+.pageTwo {
+    background-image: url('../images/backgroundImage.png');
+    width: 100%;
+}
+.pageThree {
+    display: flex;
+    justify-content: center;
+}
+.pageFour {
+    background-image: url('../images/backgroundImage.png');
+    margin-bottom: 0px;
+    width: 100%;
+}
+.pageInitial {
+    padding-top: 5px;
+    height: 300px;
+    background-image: url('../images/cyberProLogo.jpg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    -webkit-mask-image: radial-gradient(circle, rgba(10, 10, 24, 0.9) 20%, rgba(5, 5, 10, 0.05) 37%);
+    mask-image: radial-gradient(circle, rgba(10, 10, 24, 0.9) 20%, rgba(5, 5, 10, 0.05) 37%);
+}
+.pageItem {
+    height: 90vh;
+}
+.pageItem h4 {
+    margin-top: 10px;
+}
+.pageItem form {
+    height: 300px;
+}
+.pageItem form input, .pageItem form select, .pageItem form textarea {
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+}
+.contactInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.contactUsButton {
+    color: white;
+    background-color: rgb(5,5,10);
+    border: 2px solid white;
+}
+.contactUsButton:hover {
+    border: 2px solid rgb(5,5,10);
+    background-color: white;
+    color: rgb(5, 5, 10);
+}
+.featureContainer .row {
+    justify-content: center;
+}
+
+#cyberProLogo {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    color: white;
+}
+.cyberProHeading {
+    font-size: 15px;
+}
+.cyberProSlogan {
+    font-size: 12px;
+}
+.cyberProHeading, .cyberProSlogan {
+    margin-bottom: 0px;
+    color: white;
+}
+
+.itUnderline {
+    display: inline-block;
+    position: relative; /* Ensure pseudo-element positioning */
+    text-decoration: none; /* Start without underline */
+    color: black; /* Initial text color */
+    transition: color 0.01s ease; /* Transition for text color */
+}
+  
+.itUnderline::before {
+    content: ''; /* Required for pseudo-element */
+    position: absolute;
+    bottom: -2px; /* Adjust as needed */
+    left: 0;
+    width: 0; /* Start with no underline */
+    height: 2px; /* Height of the underline */
+    background-color: transparent; /* Start with transparent color */
+    transition: width 2s ease, background-color 0.1s ease; /* Transition for underline */
+}
+  
+.underlinedIT {
+    color: white; /* Text color when underlined */
+}
+  
+.underlinedIT::before {
+    width: 100%; /* Full width to show the underline */
+    background-color: white; /* Color of the underline */
+}
+
+.nav-link {
+    color: white;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    display: inline-block;
+    position: relative; /* Ensure pseudo-element positioning */
+    text-decoration: none; /* Start without underline */
+    transition: color 0.01s ease; /* Transition for text color */
+}
+.nav-link::before {
+    content: ''; /* Required for pseudo-element */
+    position: absolute;
+    bottom: -2px; /* Adjust as needed */
+    right: 0;
+    width: 0; /* Start with no underline */
+    height: 2px; /* Height of the underline */
+    background-color: transparent; /* Start with transparent color */
+    transition: width 0.3s ease, background-color 0.1s ease; /* Transition for underline */
+}  
+.nav-link:hover::before {
+    width: 100%; /* Full width to show the underline */
+    background-color: white; /* Color of the underline */
+}
+#homepageImg {
+    height: 250px;
+    width: auto;
+    position: relative;
+    -webkit-mask-image: radial-gradient(ellipse, rgba(10, 10, 24, 0.9) 58%, rgba(5, 5, 10, 0.05) 70%);
+    mask-image: radial-gradient(ellipse, rgba(10, 10, 24, 0.9) 58%, rgba(5, 5, 10, 0.05) 70%);
+}
+.getStartedDiv {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.getStartedButton, .button, .login-with-google-btn {
+    position: relative;
+    background-color: rgb(5, 5, 10);
+    color: white;
+    border-radius: 10px;
+    padding: 5px 10px;
+    border: 2px solid white;
+    font-size: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    margin: 10px;
+    transition: all 0.5s ease;
+}  
+.getStartedButton::before, .button::before, .login-with-google-btn::before {
+    content: attr(data-hover-text);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    color: rgb(5, 5, 10);
+    z-index: 1;
+    transition: top 0.5s ease;
+    border-radius: 10px; /* match border radius */
+}  
+.getStartedButton:hover::before, .button:hover::before, .login-with-google-btn:hover::before {
+    top: 0;
+}  
+.getStartedButton:hover, .button:hover, .login-with-google-btn:hover {
+    color: rgb(5, 5, 10);
+}
+.getStartedButton .text, .button .text, .login-with-google-btn .text {
+    position: relative;
+    z-index: 2;
+    transition: color 0.5s ease;
+}  
+.getStartedButton:hover .text, .button:hover .text, .login-with-google-btn:hover .text {
+    color: rgb(5, 5, 10);
+}
+.imageAboutUs {
+    display: flex;
+    justify-content: center;
+}
+#imageAboutUs {
+    width: 190px;
+    height: 86px;
+    margin: 8px 0px;
+    border: 5px solid rgb(5,5,10);
+}
+.pricesCard{
+    transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
+}
+.pricesCard:hover {
+    box-shadow: 0 8px 20px rgba(126, 126, 126); /* Box-shadow effect on hover */
+}
+.handOverNB {
+    color: white;
+    z-index: 1;
+    margin: 0px;
+    position: absolute;
+    transform: translate(-30%, -20%); /* Adjust the element to overlap the corner */
+    border: 2px solid red;
+    box-shadow: 0 6px 18px red; /* Box-shadow effect on hover */
+}
+
+.handOverPrices {
+    position: relative;
+    background-color: red;
+    padding: 10px;
+    margin: 7px 3px;
+    border-radius: 25px;
+    display: inline-block; /* Ensure the element has a bounding box for positioning */
+    box-shadow: 0 8px 20px red; /* Box-shadow effect on hover */
+}
+
+.handOverPrices p {
+    margin: 0px;
+}
+
+.finalMessage {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+#footer {
+    background-color: rgba(48, 48, 48, 0.532);
+    width: 100%;
+    padding: 10px 45px;
+}
+.footerCompanyInfo {
+    text-align: right;
+    font-size: 0.7rem;
+}
+
+@media (max-width: 769px) {
+    .pageInitial {
+        -webkit-mask-image: radial-gradient(circle, rgba(10, 10, 24, 0.9) 30%, rgba(5, 5, 10, 0.05) 50%);
+        mask-image: radial-gradient(circle, rgba(10, 10, 24, 0.9) 30%, rgba(5, 5, 10, 0.05) 50%);
+    }
+    #navbarsExample05 ul {
+        background-color: grey;
+    }
+    #navbarsExample05 ul li a {
+        width: 100%;
+        color: rgb(5,5,10);
+    }
+}
+
+@media (max-width: 571px) {
+    .pageInitial {
+        background-size: cover;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+}
+
+@media (max-width: 426px) {
+    .homepageImg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .homepageImg img {
+        width: 250px;
+        height: auto;
+    }
+    .pageOne, .pageTwo, .pageThree, .pageFour, .pageFive {
+        padding: 20px 25px;
+    }
+    .pricesRowDiv {
+        display: flex;
+        justify-content: center;
+    }
+    .pricesColCard {
+        width: 75%;
+    }
+}
+
+@media (max-width: 321px) {
+    .homepageImg img {
+        width: 200px;
+        height: auto;
+    }
+    .pageTwo, .pageThree, .pageFour {
+        padding: 5px 15px;
+    }
+}
