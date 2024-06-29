@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#year').text(yearNow)
 
     const loginWithGoogle = () => {
-        window.open('http://localhost:8000/auth/google/callback','_self')
+        window.open('https://cyberproexample.onrender.com/auth/google/callback','_self')
     }
     $('.login-with-google-btn').click(loginWithGoogle)
 
