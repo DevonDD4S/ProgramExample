@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import session from 'express-session';
 import nodemailer from 'nodemailer';
 import {Strategy as OAuth2Strategy} from 'passport-google-oauth2';
+import MemoryStore from 'memorystore';
 
 env.config(); //call the function needed to make your imported secrets work
 const app = express();
@@ -19,10 +20,12 @@ app.use(express.static('public')); // Serve static files from the 'public' direc
 app.use(helmet());
 app.use(bodyParser.json())
 
-// Use the store in your session middleware
+const MemoryStoreInstance = MemoryStore(session); // Create a MemoryStore instance
+
+// Use the MemoryStore in your session middleware
 app.use(session({
-  store: new MemoryStore({
-    checkPeriod: 600000 // prune expired entries every 10 minutes
+  store: new MemoryStoreInstance({
+    checkPeriod: 600000 // Prune expired entries every 10 minutes
   }),
   secret: process.env.SESSION_SECRET, //session secret
   resave: false,

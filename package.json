@@ -20,6 +20,7 @@
     "express-session": "^1.18.0",
     "googleapis": "^140.0.1",
     "helmet": "^7.1.0",
+    "memorystore": "^1.6.7",
     "mongoose": "^8.4.4",
     "nodemailer": "^6.9.14",
     "passport": "^0.7.0",
