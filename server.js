@@ -105,7 +105,7 @@ passport.use(
   new OAuth2Strategy({
     clientID:clientid,
     clientSecret:clientsecret,
-    callbackURL:'/auth/google/callback',
+    callbackURL:'https://cyberproexample.onrender.com/auth/google/callback',
     scope:['profile','email']
   },
   async(assessToken,refreshToken,profile,done) => {
