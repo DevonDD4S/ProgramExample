@@ -34,6 +34,16 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Middleware to access the email in routes
+app.use((req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.locals.email = req.user;
+  } else {
+    res.locals.email = null;
+  }
+  next();
+});
+
 //security
 app.use(cors({
   origin: process.env.CORS_ORIGIN, // the allowed origin
@@ -132,7 +142,6 @@ app.get('/auth/google/callback',passport.authenticate('google',{
   successRedirect:'/getStarted',
   failureRedirect: '/getStarted'
 }))
-
 
 const sendEmail = async (userEmail,userName,userNumber,userSelect,userEmailText) => {
   try {
