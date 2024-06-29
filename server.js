@@ -21,6 +21,9 @@ app.use(bodyParser.json())
 
 // Use the store in your session middleware
 app.use(session({
+  store: new MemoryStore({
+    checkPeriod: 600000 // prune expired entries every 10 minutes
+  }),
   secret: process.env.SESSION_SECRET, //session secret
   resave: false,
   saveUninitialized: true,
@@ -142,6 +145,26 @@ app.get('/auth/google/callback',passport.authenticate('google',{
   successRedirect:'/getStarted',
   failureRedirect: '/getStarted'
 }))
+app.get('/auth/google/callback', (req, res, next) => {
+  passport.authenticate('google', (err, user, info) => {
+    if (err) {
+      console.error('Authentication error:', err);
+      return res.redirect('/getStarted?error=' + encodeURIComponent(err.message));
+    }
+    if (!user) {
+      console.log('Authentication failed:', info);
+      return res.redirect('/getStarted?error=' + encodeURIComponent(info.message));
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error('Login error:', err);
+        return res.redirect('/getStarted?error=' + encodeURIComponent(err.message));
+      }
+      return res.redirect('/getStarted');
+    });
+  })(req, res, next);
+});
+
 
 const sendEmail = async (userEmail,userName,userNumber,userSelect,userEmailText) => {
   try {
