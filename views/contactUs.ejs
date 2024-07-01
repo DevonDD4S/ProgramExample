@@ -7,21 +7,10 @@
             <p>Contact Number: 078 307 1165</p><p>Email Address: website@cpcc.co.za</p>
         </div>
         <h4 class="mt-5">Contact Us</h4>
-        <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <form class="googleButton" action="/auth/google" method="GET">
-                    <button class="login-with-google-btn btn" type="submit"><span class="text">Sign In With Google to retrieve your email: </span></button>
-                </form>
-            </div>
-        </div>
         <form class="inputForm" action="/send-email" method="POST">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-6">
-                    <% if (locals.userEmail) { %>
-                        <input type="email" name="userEmail" placeholder="Sign In..." autocomplete="off" value="<%= userEmail %>" required>
-                    <% } else { %>
-                        <input type="email" name="userEmail" placeholder="Sign In..." autocomplete="off" required>
-                    <% } %>    
+                    <input type="email" name="userEmail" placeholder="Sign In..." autocomplete="off" required>    
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
                     <input type="text" name="userName" placeholder="Enter your Full Name..." autocomplete="off" required>
@@ -32,12 +21,12 @@
                 <div class="col-sm-6 col-md-6 col-lg-6">
                     <select name="userSelect" id="userSelect" required>
                         <option value="" disabled selected>Im interested in...</option>
-                        <option value="Class">Robotic Process Automation (RPA)</option>
-                        <option value="Class">Server Support</option>
-                        <option value="Class">Desktop Support</option>
-                        <option value="Class">Full Stack Development</option>
-                        <option value="Class">Web Development and Hosting</option>
-                        <option value="Class">Microsoft and Linux Services</option>
+                        <option value="Robotic Process Automation (RPA)">Robotic Process Automation (RPA)</option>
+                        <option value="Server Support">Server Support</option>
+                        <option value="Desktop Support">Desktop Support</option>
+                        <option value="Full Stack Development">Full Stack Development</option>
+                        <option value="Web Development and Hosting">Web Development and Hosting</option>
+                        <option value="Microsoft and Linux Services">Microsoft and Linux Services</option>
                     </select>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-12">

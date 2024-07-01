@@ -6,9 +6,6 @@ import env from "dotenv";
 import helmet from 'helmet';
 import session from 'express-session';
 import nodemailer from 'nodemailer';
-import {Strategy as OAuth2Strategy} from 'passport-google-oauth2';
-import MemoryStore from 'memorystore';
-import CryptoJS from 'crypto-js';
 
 env.config(); //call the function needed to make your imported secrets work
 const app = express();
@@ -21,13 +18,8 @@ app.use(express.static('public')); // Serve static files from the 'public' direc
 app.use(helmet());
 app.use(bodyParser.json())
 
-const MemoryStoreInstance = MemoryStore(session); // Create a MemoryStore instance
-
 // Use the MemoryStore in your session middleware
 app.use(session({
-  store: new MemoryStoreInstance({
-    checkPeriod: 600000 // Prune expired entries every 10 minutes
-  }),
   secret: process.env.SESSION_SECRET, //session secret
   resave: false,
   saveUninitialized: true,
@@ -40,33 +32,6 @@ app.use(session({
 })); //stores the info of the user
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Middleware to access the email in routes
-app.use((req, res, next) => {
-  if (req.isAuthenticated()) {
-    //Encrypt and store email in localStorage
-    const encryptedEmail = encryptEmail(req.session.passport.user);
-    localStorage.setItem('encryptedEmail',encryptedEmail)
-  }
-  next();
-});
-
-//function to encrypt email with user-specific key
-function encryptEmail(email) {
-  const secretKey = process.env.USER_SECRET_KEY; //secret key
-  return CryptoJS.AES.encrypt(email, secretKey).toString()
-}
-
-//function to decrypt email from localStorage
-function decryptEmail() {
-  const encryptedEmail = localStorage.getItem('encryptedEmail');
-  if (encryptEmail) {
-    const secretKey = process.env.USER_SECRET_KEY; //secret key
-    const bytes = CryptoJS.AES.decrypt(encryptEmail, secretKey)
-    return bytes.toString(CryptoJS.enc.Utf8)
-  }
-  return null
-}
 
 //security
 app.use(cors({
@@ -93,12 +58,7 @@ app.use(async (req, res, next) => {
 });
 
 app.post('/send-email', (req,res) => {
-  let userEmail = decryptEmail()
-  const {userName,userNumber,userSelect,userEmailText} = req.body
-  if (!userEmail) {
-    userEmail = req.body.userEmail
-  }
-  console.log('userEmail: ',userEmail)
+  const {userEmail,userName,userNumber,userSelect,userEmailText} = req.body
   sendEmail(userEmail,userName,userNumber,userSelect,userEmailText)
     .then(() => res.redirect('/getStarted'))
     .catch((error) => res.status(500).send(`Error: ${error.message}`))
@@ -133,40 +93,6 @@ app.get('/aboutUs', (req,res) => {
     console.error('Error displaying the About Us page: ',error)
   }
 })
-
-const clientid = process.env.CLIENT_ID
-const clientsecret = process.env.CLIENT_SECRET
-passport.use(
-  new OAuth2Strategy({
-    clientID:clientid,
-    clientSecret:clientsecret,
-    callbackURL:process.env.CALLBACK_URL,
-    scope:['profile','email']
-  },
-  async(assessToken,refreshToken,profile,done) => {
-    try {
-      let email = profile.emails[0].value
-      return done(null,email)
-    } catch (error) {
-      return done(error,null)
-    }
-  }
-  )
-)
-passport.serializeUser((email,done) => {
-  done(null,email)
-})
-passport.deserializeUser((email,done) => {
-  done(null,email)
-})
-
-//initial google oauth login
-app.get('/auth/google',passport.authenticate('google',{scope:['profile','email']}))
-
-app.get('/auth/google/callback',passport.authenticate('google',{
-  successRedirect:'/getStarted',
-  failureRedirect: '/getStarted'
-}))
 
 const sendEmail = async (userEmail,userName,userNumber,userSelect,userEmailText) => {
   try {
