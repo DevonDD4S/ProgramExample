@@ -53,7 +53,7 @@ body {
     width: 100%;
     padding: 0px;
 }
-.pageTwo {
+.pageTwo, .getStartedContainer {
     background-image: url('../images/backgroundImage.png');
     width: 100%;
 }
@@ -68,7 +68,6 @@ body {
 }
 .pageInitial {
     padding-top: 5px;
-    height: 300px;
     background-image: url('../images/cyberProLogo.jpg');
     background-position: center;
     background-size: contain;
@@ -76,6 +75,9 @@ body {
     position: relative;
     -webkit-mask-image: radial-gradient(circle, rgba(10, 10, 24, 0.9) 20%, rgba(5, 5, 10, 0.05) 37%);
     mask-image: radial-gradient(circle, rgba(10, 10, 24, 0.9) 20%, rgba(5, 5, 10, 0.05) 37%);
+}
+.pageBackgroundImage {
+    height: 300px;
 }
 .pageItem {
     height: 90vh;
@@ -240,11 +242,18 @@ body {
     margin: 8px 0px;
     border: 5px solid rgb(5,5,10);
 }
-.pricesCard{
-    transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
+.classItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    padding: 5px;
 }
-.pricesCard:hover {
-    box-shadow: 0 8px 20px rgba(126, 126, 126); /* Box-shadow effect on hover */
+.classItemThree, .classItemFour {
+    background-color: rgb(50,50,50);
+}
+.pricesColCard {
+    padding: 0px;
 }
 .handOverNB {
     color: white;
@@ -268,6 +277,26 @@ body {
 
 .handOverPrices p {
     margin: 0px;
+}
+
+blockquote {
+    border:none;
+    font-family:Georgia, "Times New Roman", Times, serif;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote p:before { 
+content: open-quote;
+font-weight: bold;
+font-size:20px;
+color:white;
+} 
+blockquote p:after { 
+content: close-quote;
+font-weight: bold;
+font-size:20px;
+color:white;
+  
 }
 
 .finalMessage {
@@ -309,6 +338,12 @@ body {
 }
 
 @media (max-width: 426px) {
+    #pageOne {
+        padding-top: 30px !important;
+        margin-top: 30px !important;
+        padding-bottom: 30px !important;
+        margin-bottom: 30px !important;
+    }
     .homepageImg {
         display: flex;
         justify-content: center;
@@ -318,15 +353,20 @@ body {
         width: 250px;
         height: auto;
     }
+    .classItem {
+        height: 100px;
+        padding-bottom: 10px;
+    }
+    .classItemOne, .classItemThree, .classItemFive {
+        height: 70px;
+        padding-bottom: 0px;
+    }
     .pageOne, .pageTwo, .pageThree, .pageFour, .pageFive {
         padding: 20px 25px;
     }
     .pricesRowDiv {
         display: flex;
         justify-content: center;
-    }
-    .pricesColCard {
-        width: 75%;
     }
 }
 

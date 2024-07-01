@@ -8,6 +8,7 @@ import session from 'express-session';
 import nodemailer from 'nodemailer';
 import {Strategy as OAuth2Strategy} from 'passport-google-oauth2';
 import MemoryStore from 'memorystore';
+import CryptoJS from 'crypto-js';
 
 env.config(); //call the function needed to make your imported secrets work
 const app = express();
@@ -43,12 +44,29 @@ app.use(passport.session());
 // Middleware to access the email in routes
 app.use((req, res, next) => {
   if (req.isAuthenticated()) {
-    res.locals.email = req.user;
-  } else {
-    res.locals.email = null;
+    //Encrypt and store email in localStorage
+    const encryptedEmail = encryptEmail(req.session.passport.user);
+    localStorage.setItem('encryptedEmail',encryptedEmail)
   }
   next();
 });
+
+//function to encrypt email with user-specific key
+function encryptEmail(email) {
+  const secretKey = process.env.USER_SECRET_KEY; //secret key
+  return CryptoJS.AES.encrypt(email, secretKey).toString()
+}
+
+//function to decrypt email from localStorage
+function decryptEmail() {
+  const encryptedEmail = localStorage.getItem('encryptedEmail');
+  if (encryptEmail) {
+    const secretKey = process.env.USER_SECRET_KEY; //secret key
+    const bytes = CryptoJS.AES.decrypt(encryptEmail, secretKey)
+    return bytes.toString(CryptoJS.enc.Utf8)
+  }
+  return null
+}
 
 //security
 app.use(cors({
@@ -75,15 +93,17 @@ app.use(async (req, res, next) => {
 });
 
 app.post('/send-email', (req,res) => {
-  if (req.isAuthenticated()) {
-    const {userName,userNumber,userSelect,userEmailText} = req.body
-    let userEmail = req.session.passport.user
-    sendEmail(userEmail,userName,userNumber,userSelect,userEmailText)
+  const {userName,userNumber,userSelect,userEmailText} = req.body
+  const userEmail = decryptEmail()
+  console.log('userEmail: ',userEmail)
+  console.log('req.session.passport.user: ',req.session.passport.user)
+  
+  if (!userEmail) {
+    return res.status(401).send('User email not found or unauthorized.')
+  }
+  sendEmail(userEmail,userName,userNumber,userSelect,userEmailText)
     .then(() => res.redirect('/getStarted'))
     .catch((error) => res.status(500).send(`Error: ${error.message}`))
-  } else {
-    res.redirect('/getStarted')
-  }
 })
 
 app.get('/', (req,res) => {
@@ -97,7 +117,7 @@ app.get('/', (req,res) => {
 app.get('/getStarted', (req,res) => {
   try {
     if (req.isAuthenticated()) {
-      let userEmail = req.session.passport.user
+      const userEmail = req.session.passport.user
       res.status(200).render('contactUs',{userEmail:userEmail})
     } else {
       res.status(200).render('contactUs')
@@ -148,26 +168,6 @@ app.get('/auth/google/callback',passport.authenticate('google',{
   successRedirect:'/getStarted',
   failureRedirect: '/getStarted'
 }))
-app.get('/auth/google/callback', (req, res, next) => {
-  passport.authenticate('google', (err, user, info) => {
-    if (err) {
-      console.error('Authentication error:', err);
-      return res.redirect('/getStarted?error=' + encodeURIComponent(err.message));
-    }
-    if (!user) {
-      console.log('Authentication failed:', info);
-      return res.redirect('/getStarted?error=' + encodeURIComponent(info.message));
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        console.error('Login error:', err);
-        return res.redirect('/getStarted?error=' + encodeURIComponent(err.message));
-      }
-      return res.redirect('/getStarted');
-    });
-  })(req, res, next);
-});
-
 
 const sendEmail = async (userEmail,userName,userNumber,userSelect,userEmailText) => {
   try {
@@ -187,11 +187,21 @@ const sendEmail = async (userEmail,userName,userNumber,userSelect,userEmailText)
   const mailOptions = {
       from: userEmail,
       to: process.env.MY_EMAIL,
-      subject: `${userEmail} wants a quote`,
+      subject: `${userEmail} is requesting a quote`,
       text: `
-        ${userEmail} wants a quote. 
-        My name is ${userName}, my number is ${userNumber}, from the 3 SLA choices, I choose ${userSelect}.
-        My message to you is: ${userEmailText}
+        Hello,
+
+        ${userEmail} is requesting a quote.
+
+        Name: ${userName}
+        Contact Number: ${userNumber}
+        Interested In: ${userSelect}
+
+        Message:
+        ${userEmailText}
+
+        Best regards,
+        ${userName}
       `,
   }
   await transporter.sendMail(mailOptions)
