@@ -74,13 +74,7 @@ app.get('/', (req,res) => {
 
 app.get('/getStarted', async (req,res) => {
   try {
-    if (req.isAuthenticated()) {
-      const email = req.session.passport.user;
-      console.log('req.session: ',req.session.passport)
-      res.status(200).render('contactUs',{userEmail:email})
-    } else {
-      res.status(200).render('contactUs')
-    }
+    res.status(200).render('contactUs')
   } catch (error) {
     res.status(404).send(`Error displaying contactUs page: ${error}`)
   }
