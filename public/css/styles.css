@@ -79,19 +79,16 @@ body {
 .pageBackgroundImage {
     height: 300px;
 }
-.pageItem {
-    height: 90vh;
-}
 .pageItem h4 {
     margin-top: 10px;
 }
-.pageItem form {
-    height: 300px;
-}
-.pageItem form input, .pageItem form select, .pageItem form textarea {
+.pageItem .inputForm input, .pageItem .inputForm select, .pageItem .inputForm textarea {
     width: 100%;
     padding: 5px;
     margin: 5px;
+}
+.googleButton {
+    padding: 5px;
 }
 .contactInfo {
     display: flex;

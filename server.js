@@ -112,11 +112,12 @@ app.get('/', (req,res) => {
   }
 })
 
-app.get('/getStarted', (req,res) => {
+app.get('/getStarted', async (req,res) => {
   try {
     if (req.isAuthenticated()) {
-      const userEmail = req.session.passport.user
-      res.status(200).render('contactUs',{userEmail:userEmail})
+      const email = req.session.passport.user;
+      console.log('req.session: ',req.session.passport)
+      res.status(200).render('contactUs',{userEmail:email})
     } else {
       res.status(200).render('contactUs')
     }
@@ -139,7 +140,7 @@ passport.use(
   new OAuth2Strategy({
     clientID:clientid,
     clientSecret:clientsecret,
-    callbackURL:'https://cyberproexample.onrender.com/auth/google/callback',
+    callbackURL:process.env.CALLBACK_URL,
     scope:['profile','email']
   },
   async(assessToken,refreshToken,profile,done) => {
