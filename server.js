@@ -59,9 +59,13 @@ app.use(async (req, res, next) => {
 
 app.post('/send-email', (req,res) => {
   const {userEmail,userName,userNumber,userSelect,userEmailText} = req.body
-  sendEmail(userEmail,userName,userNumber,userSelect,userEmailText)
-    .then(() => res.redirect('/getStarted'))
-    .catch((error) => res.status(500).send(`Error: ${error.message}`))
+  if (userNumber.length == 10 || userNumber.length == 12) {
+    sendEmail(userEmail,userName,userNumber,userSelect,userEmailText)
+      .then(() => res.redirect('/getStarted'))
+      .catch((error) => res.status(500).send(`Error: ${error.message}`))
+  } else {
+    res.render('contactUs', {numberMessage:'Your number is not correct'})
+  }
 })
 
 app.get('/', (req,res) => {

@@ -3,20 +3,35 @@
 <main id="mainPage" class="main">
     <div class="pageInitial pageBackgroundImage page"></div>
     <div class="pageItem page container" id="pageFive">
-        <div class="contactInfo">
-            <p>Contact Number: 078 307 1165</p><p>Email Address: website@cpcc.co.za</p>
+        <button class="getStartedButton contact-button"><span class="text">Contact Information</span></button>
+        <div class="contactInfo row">
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <p>Contact Number:</p>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <p>+27 15 023 0163</p>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <p>+27 78 307 1165</p>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-3">
+                <p>Email Address: website@cpcc.co.za</p>
+            </div>
         </div>
         <h4 class="mt-5">Contact Us</h4>
         <form class="inputForm" action="/send-email" method="POST">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-6">
-                    <input type="email" name="userEmail" placeholder="Sign In..." autocomplete="off" required>    
+                    <input type="email" name="userEmail" placeholder="Enter your email..." autocomplete="off" required>    
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
                     <input type="text" name="userName" placeholder="Enter your Full Name..." autocomplete="off" required>
                 </div>
+                <% if (locals.numberMessage) { %>
+                    <p><%= numberMessage %>
+                <% } %>
                 <div class="col-sm-6 col-md-6 col-lg-6">
-                    <input type="number" name="userNumber" placeholder="Enter your number..." autocomplete="off" required>
+                    <input type="number" id="userNumber" name="userNumber" placeholder="Enter your number..." autocomplete="off" required>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
                     <select name="userSelect" id="userSelect" required>

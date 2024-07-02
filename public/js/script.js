@@ -2,10 +2,14 @@ $(document).ready(function() {
   let yearNow = new Date().getFullYear()
   $('#year').text(yearNow)
 
-  const loginWithGoogle = () => {
+  /*const loginWithGoogle = () => {
     window.open('https://cyberproexample.onrender.com/auth/google','_self')
   }
-  $('.login-with-google-btn').click(loginWithGoogle)
+  $('.login-with-google-btn').click(loginWithGoogle)*/
+
+  $('.contact-button').click(function() {
+    $('.contactInfo').toggleClass('show');
+  });
 
   const $items = $('.page');
   const $itUnderline = $('.itUnderline')

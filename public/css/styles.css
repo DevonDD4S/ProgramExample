@@ -87,13 +87,16 @@ body {
     padding: 5px;
     margin: 5px;
 }
+
+.contactInfo {
+    display: none;
+}
+.contactInfo.show {
+    display: block;
+}
+
 .googleButton {
     padding: 5px;
-}
-.contactInfo {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
 }
 .contactUsButton {
     color: white;
