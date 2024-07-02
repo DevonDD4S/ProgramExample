@@ -92,7 +92,7 @@ body {
     display: none;
 }
 .contactInfo.show {
-    display: block;
+    display: flex;
 }
 
 .googleButton {
