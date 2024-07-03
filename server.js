@@ -61,10 +61,10 @@ app.post('/send-email', (req,res) => {
   const {userEmail,userName,userNumber,userSelect,userEmailText} = req.body
   if (userNumber.length == 10 || userNumber.length == 12) {
     sendEmail(userEmail,userName,userNumber,userSelect,userEmailText)
-      .then(() => res.redirect('/getStarted'))
+      .then(() => res.render('contactUs', {message:"Thank you for reaching out", numberMessage:''}))
       .catch((error) => res.status(500).send(`Error: ${error.message}`))
   } else {
-    res.render('contactUs', {numberMessage:'Your number is not correct'})
+    res.render('contactUs', {numberMessage:'Your number is not correct', message:''})
   }
 })
 
@@ -81,14 +81,6 @@ app.get('/getStarted', async (req,res) => {
     res.status(200).render('contactUs')
   } catch (error) {
     res.status(404).send(`Error displaying contactUs page: ${error}`)
-  }
-})
-
-app.get('/aboutUs', (req,res) => {
-  try {
-    res.status(200).render('aboutUs')
-  } catch (error) {
-    console.error('Error displaying the About Us page: ',error)
   }
 })
 

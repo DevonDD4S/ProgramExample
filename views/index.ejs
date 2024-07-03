@@ -1,11 +1,11 @@
 <%- include('partials/header.ejs') %> <!-- header -->
 
-<main id="mainPage" class="main">
-  <div id="pageOne" class="pageOne page my-5 py-5">
+<main class="main mainPage">
+  <div id="pageOne" class="pageOne page my-4 py-4">
     <div class="container pageOneContent col-xxl-8 px-2 py-4">
       <div class="row flex-sm-row-reverse align-items-center g-5 py-4">
         <div class="col-12 col-sm-12 col-md-5 col-lg-6 homepageImg">
-          <img src="images/cpccLogoCube.png" id="homepageImg" class="d-block mx-lg-auto img-fluid" alt="Cyber-Pro image" loading="lazy">
+          <img src="/images/cpccLogoCube.png" id="homepageImg" class="d-block mx-lg-auto img-fluid" alt="Cyber-Pro image" loading="lazy">
         </div>
         <div class="col-12 col-sm-12 col-md-7 col-lg-6 homepageSlogan px-5">
           <h1 class="display-5 fw-bold lh-1 mb-3">Computer Consultants</h1>
@@ -14,7 +14,7 @@
       </div>
       <div class="row getStartedRow">
         <div class="col-12 getStartedDiv">
-          <a href="/getStarted"><button class="getStartedButton"><span class="text">WANT A QUOTE</span></button></a>
+          <a href="/getStarted/#pageFive"><button class="getStartedButton"><span class="text">WANT FREE A QUOTE</span></button></a>
         </div>
       </div>
     </div>
@@ -65,53 +65,42 @@
       <div class="featureContainer">
         <h4>Our service level agreement (SLA) guarantees:</h4>
         <p class="mb-3">Call Classifications: We categorize calls into three classes to ensure the appropriate response times 
-          and priority levels</p>
-        <div class="row pricesRowDiv row-cols-1 row-cols-md-3 mb-3 text-center">
-          <div class="col pricesColCard groupOne col-sm-12 col-md-6">
-            <div class="pricesCard rounded-3">
-              <div class="classItem classItemOne">
+          and priority levels
+        </p>
+        <div class="featuresRow row row-cols-1 row-cols-md-3 mb-3 text-center">
+          <div class="col">
+            <div class="card page cardFeature mb-1 rounded-3 shadow-sm">
+              <div class="card-header pt-3">
                 <h4 class="my-0 fw-normal">Class A:</h4>
               </div>
-            </div>
-          </div>
-          <div class="col pricesColCard groupOne col-sm-12 col-md-6">
-            <div class="pricesCard rounded-3">
-              <div class="classItem classItemTwo">
-                <ul class="list-unstyled">
+              <div class="card-body">
+                <ul class="list-unstyled mt-1 mb-1">
                   <li>Critical malfunctions of servers, internet connectivity, and management teams' laptops or computers.</li>
-                  <li>Response time: 1 hour</li>
+                  <li class="mt-3">Response time: 1 hour</li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="col pricesColCard col-sm-12 col-md-6">
-            <div class="pricesCard rounded-3">
-              <div class="classItem classItemThree groupTwo"> 
+          <div class="col">
+            <div class="card page cardFeature mb-1 rounded-3 shadow-sm">
+              <div class="card-header pt-3">
                 <h4 class="my-0 fw-normal">Class B:</h4>
               </div>
-            </div>
-          </div>
-          <div class="col pricesColCard col-sm-12 col-md-6">
-            <div class="pricesCard rounded-3">
-              <div class="classItem classItemFour groupTwo">
-                <ul class="list-unstyled">
+              <div class="card-body">
+                <ul class="list-unstyled mt-1 mb-1">
                   <li>Desktop support for non-critical issues.</li>
-                  <li>Response time: 3 hours</li>
+                  <li class="mt-3">Response time: 3 hours</li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="col pricesColCard col-sm-12 col-md-6">
-            <div class="pricesCard rounded-3">
-              <div class="classItem classItemFive groupThree">
+          <div class="col">
+            <div class="card page cardFeature mb-1 rounded-3 shadow-sm">
+              <div class="card-header pt-3">
                 <h4 class="my-0 fw-normal">Class C:</h4>
               </div>
-            </div>
-          </div>
-          <div class="col pricesColCard col-sm-12 col-md-6">
-            <div class="pricesCard rounded-3">
-              <div class="classItem classItemSix groupThree">
-                <ul class="list-unstyled">
+              <div class="card-body">
+                <ul class="list-unstyled mt-1 mb-1">
                   <li>Non-critical support with a 24-hour response time.</li>
                 </ul>
               </div>
@@ -119,22 +108,15 @@
           </div>
         </div>
       </div>
-      <div class="container">
-        <h5 class="handOverNB">NB!</h5>
-        <div class="handOverPrices">
-          <p class="display-10 text-center">
-            Handover and Cancellation: Should you decide to cancel our services, we offer a 3-month exit 
-            clause to ensure a smooth transition. During this time, we will facilitate comprehensive handover 
-            procedures, ensuring minimal disruption to your operations.
-          </p>
-        </div>
-      </div>
+      <p class="display-10">
+        We offer a 3-month exit clause to facilitate a comprehensive handover procedure, ensuring minimal disruption to your operation(s).
+      </p>
     </main>
   </div>
   <div class="getStartedContainer page">
     <div class="row getStartedRow">
       <div class="col-12 getStartedDiv">
-        <a href="/getStarted"><button class="getStartedButton"><span class="text">WANT A QUOTE</span></button></a>
+        <a href="/getStarted/#pageFive"><button class="getStartedButton"><span class="text">WANT FREE A QUOTE</span></button></a>
       </div>
       <div class="col-12 finalMessage">
         <blockquote><p>We combine modern technology with 26 years of accumilated IT experience to produce automations to save your staff time and to save you money.</p></blockquote>
