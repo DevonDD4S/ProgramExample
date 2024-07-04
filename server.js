@@ -6,6 +6,9 @@ import env from "dotenv";
 import helmet from 'helmet';
 import session from 'express-session';
 import nodemailer from 'nodemailer';
+import mongoose from 'mongoose';
+import { Strategy as OAuth2Strategy } from 'passport-google-oauth2'; // Import GoogleStrategy
+import User from './modules/user.js';
 
 env.config(); //call the function needed to make your imported secrets work
 const app = express();
@@ -17,21 +20,6 @@ app.set('view engine', 'ejs');
 app.use(express.static('public')); // Serve static files from the 'public' directory
 app.use(helmet());
 app.use(bodyParser.json())
-
-// Use the MemoryStore in your session middleware
-app.use(session({
-  secret: process.env.SESSION_SECRET, //session secret
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: false,
-    httpOnly: true, // Restricts access to the cookie to HTTP requests only
-    sameSite: 'strict', // Prevents the session cookie from being sent in cross-site requests
-    maxAge: 10 * 60 * 1000 // Session expiration time in milliseconds (10min)
-  },
-})); //stores the info of the user
-app.use(passport.initialize());
-app.use(passport.session());
 
 //security
 app.use(cors({
@@ -57,6 +45,36 @@ app.use(async (req, res, next) => {
   }
 });
 
+// Use the MemoryStore in your session middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET, //session secret
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false,
+    httpOnly: true, // Restricts access to the cookie to HTTP requests only
+    sameSite: 'lax', // Prevents the session cookie from being sent in cross-site requests
+    maxAge: 10 * 60 * 1000 // Session expiration time in milliseconds (10min)
+  },
+})); //stores the info of the user
+app.use(passport.initialize());
+app.use(passport.session());
+
+//mongoDB URI
+const dbURI = process.env.DB_URI;
+//mongoose to run the uri
+const connectToMongoDB = () => {
+  mongoose
+  .connect(dbURI, 
+    { useUnifiedTopology:true, useNewUrlParser:true }
+  )
+  .then(() => console.log('Connected to MongoDB...'))
+  .catch((error) => {
+    console.log('Error in connecting to mongoDB: ',error)
+  })
+}
+connectToMongoDB()
+
 app.post('/send-email', (req,res) => {
   const {userEmail,userName,userNumber,userSelect,userEmailText} = req.body
   if (userNumber.length == 10 || userNumber.length == 12) {
@@ -78,7 +96,12 @@ app.get('/', (req,res) => {
 
 app.get('/getStarted', async (req,res) => {
   try {
-    res.status(200).render('contactUs')
+    if (req.isAuthenticated()) {
+      const loginEmail = req.session.passport.user.email
+      res.status(200).render('contactUs', {loginEmail:loginEmail, message:'', numberMessage:''})
+    } else {
+      res.status(200).render('contactUs')
+    }
   } catch (error) {
     res.status(404).send(`Error displaying contactUs page: ${error}`)
   }
@@ -126,6 +149,46 @@ const sendEmail = async (userEmail,userName,userNumber,userSelect,userEmailText)
   }
 }
 
+passport.use(
+  new OAuth2Strategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: process.env.CALLBACK_URL,
+    scope:['profile','email']
+  }, async(accessToken, refreshToken, profile, done) => {
+    try {
+      let user = await User.findOne({googleID:profile.id});
+      if (!user) {
+        user = new User({
+          googleID: profile.id,
+          username: profile.displayName,
+          email: profile.emails[0].value
+        })
+        await user.save();
+      }
+      return done(null,user)
+    } catch (error) {
+      console.log('Error logging in: ',error)
+      return done(error,null)
+    }
+  })
+);
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser((user, cb) => {
+  cb(null, user)
+});
+
+//initial google oauth login
+app.get('/auth/google', passport.authenticate('google',{scope: ['profile','email',]}))
+app.get('/auth/google/callback',passport.authenticate('google',{
+  successRedirect:'/getStarted',
+  failureRedirect:'/getStarted'
+}))
+
 app.listen(PORT, () => {
-    console.log(`Server listening on PORT ${PORT}`)
+  console.log(`Server listening on PORT ${PORT}`)
 })

@@ -19,6 +19,54 @@
             </div>
         </div>
     </div>
+    <div class="pageItem page pageFive" id="pageFive">
+        <h4 class="mt-1">Contact Us</h4>
+        <form class="inputForm container" action="/send-email" method="POST">
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <% if (locals.loginEmail) { %>
+                        <input type="email" name="userEmail" placeholder="Enter your email..." value="<%=loginEmail%>" autocomplete="off" required>
+                    <% }else { %>
+                        <input type="email" name="userEmail" placeholder="Enter your email..." autocomplete="off" required>    
+                    <% } %>
+                    <% if (locals.loginEmail) { %>
+                        <p id='message'><%= message %></p>
+                    <% } %>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <a href="/auth/google" class="btn login-with-google-btn">
+                        <span class="text">Sign up with Google</span>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <input type="text" name="userName" placeholder="Enter your Full Name..." autocomplete="off" required>
+                </div>
+                <% if (locals.numberMessage) { %>
+                    <p id="numberMessage"><%= numberMessage %></p>
+                <% } %>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <input type="number" id="userNumber" name="userNumber" placeholder="Enter your number..." autocomplete="off" required>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <select name="userSelect" id="userSelect" required>
+                        <option value="" disabled selected>Im interested in...</option>
+                        <option value="Robotic Process Automation (RPA)">Robotic Process Automation (RPA)</option>
+                        <option value="Server Support">Server Support</option>
+                        <option value="Desktop Support">Desktop Support</option>
+                        <option value="Full Stack Development">Full Stack Development</option>
+                        <option value="Web Development and Hosting">Web Development and Hosting</option>
+                        <option value="Microsoft and Linux Services">Microsoft and Linux Services</option>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <textarea name="userEmailText" placeholder="What do you need..." rows="4" autocomplete="off" required></textarea>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn button contactUsButton"><span class="text">Send Email</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
     <div id="pageFour" class="pageFour page">
         <div class="row">
             <h2 class="h2PageFour">About Us</h2>
@@ -55,45 +103,6 @@
                 </p>
             </div>
         </div>
-    </div>
-    <div class="pageItem page container pageFive" id="pageFive">
-        <h4 class="mt-1">Contact Us</h4>
-        <form class="inputForm" action="/send-email" method="POST">
-            <div class="row">
-                <% if (locals.message) { %>
-                    <p id='message'><%= message %></p>
-                <% } %>
-                <div class="col-sm-6 col-md-6 col-lg-6">
-                    <input type="email" name="userEmail" placeholder="Enter your email..." autocomplete="off" required>    
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-6">
-                    <input type="text" name="userName" placeholder="Enter your Full Name..." autocomplete="off" required>
-                </div>
-                <% if (locals.numberMessage) { %>
-                    <p id="numberMessage"><%= numberMessage %></p>
-                <% } %>
-                <div class="col-sm-6 col-md-6 col-lg-6">
-                    <input type="number" id="userNumber" name="userNumber" placeholder="Enter your number..." autocomplete="off" required>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-6">
-                    <select name="userSelect" id="userSelect" required>
-                        <option value="" disabled selected>Im interested in...</option>
-                        <option value="Robotic Process Automation (RPA)">Robotic Process Automation (RPA)</option>
-                        <option value="Server Support">Server Support</option>
-                        <option value="Desktop Support">Desktop Support</option>
-                        <option value="Full Stack Development">Full Stack Development</option>
-                        <option value="Web Development and Hosting">Web Development and Hosting</option>
-                        <option value="Microsoft and Linux Services">Microsoft and Linux Services</option>
-                    </select>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <textarea name="userEmailText" placeholder="What do you need..." rows="4" autocomplete="off" required></textarea>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn button contactUsButton"><span class="text">Send Email</span></button>
-                </div>
-            </div>
-        </form>
     </div>
 </main>
 
