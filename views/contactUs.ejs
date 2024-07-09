@@ -9,12 +9,12 @@
                         <p class="numberP">Contact Number:</p>
                     </div>
                     <div id="numberPOneAndTwo">
-                        <p class="numberPOne">+27 15 023 0163</p>
-                        <p class="numberPTwo">+27 78 307 1165</p>
+                        <p class="numberPOne"><a class="nav-link" href="#">+27 15 023 0163</a></p>
+                        <p class="numberPTwo"><a class="nav-link" href="#">+27 78 307 1165</a></p>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 emailDiv">
-                    <p class="emailP">Email Address: website@cpcc.co.za</p>
+                    <p class="emailP">Email Address: <a class="nav-link" href="#">website@cpcc.co.za</a></p>
                 </div>
             </div>
         </div>
@@ -23,6 +23,7 @@
         <h4 class="mt-1">Contact Us</h4>
         <form class="inputForm container" action="/send-email" method="POST">
             <div class="row">
+                <lable id="formLabel">Enter your email or Sign up with google</lable>
                 <div class="col-sm-6 col-md-6 col-lg-6">
                     <% if (locals.loginEmail) { %>
                         <input type="email" name="userEmail" placeholder="Enter your email..." value="<%=loginEmail%>" autocomplete="off" required>
@@ -67,43 +68,9 @@
             </div>
         </form>
     </div>
-    <div id="pageFour" class="pageFour page">
-        <div class="row">
-            <h2 class="h2PageFour">About Us</h2>
-            <div class="imageAboutUs container col-sm12 col-md-4 col-lg-3">
-                <img id="imageAboutUs" alt="image of director" src="/images/cpccHeaderLogo.png" />
-            </div>
-            <div class="col-sm-12 col-md-8 col-lg-9">
-                <p>Cyber-Pro Computer Consultants is a leading IT company based 
-                in Limpopo, South Africa. With a rich history dating back to our 
-                establishment in 1997, we have been at the forefront of 
-                technological advancements, consistently delivering world-class 
-                services and solutions to businesses of all sizes. 
-                </p>
-                <p>
-                Our commitment to excellence and customer satisfaction has 
-                made us a trusted partner for numerous organizations across 
-                various industries. At Cyber-Pro, we understand the critical role 
-                that technology plays in today's business landscape, and we are 
-                dedicated to making IT work for you.
-                </p>
-                <p>
-                We have built a reputation for delivering exceptional IT 
-                services and solutions. Our team of highly skilled professionals is dedicated to understanding your 
-                unique requirements and providing tailored solutions that drive your business forward. 
-                We invite you to experience the Cyber-Pro advantage and join our ever-growing family of satisfied 
-                clients. Together, we will make IT work for you.
-                </p>
-                <p>
-                If it seems like your company needs more staff to get done what needs doing, but your budget just wont allow it...<span class="itUnderline">It's time to automate!</span> 
-                We pride ourselves on offering prompt and efficient service, prioritizing your business needs.
-                </p>
-                <p>
-                We combine modern technology with 26 years of accumilated IT experience to produce automations to save your staff time and to save you money.
-                </p>
-            </div>
-        </div>
-    </div>
+    <div>
+        <button id="scrollToTopBtn"><img src="/images/up-arrow.png"></button>
+      </div>
 </main>
 
 <%- include('partials/footer.ejs') %><!-- footer -->

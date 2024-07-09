@@ -65,9 +65,7 @@ const dbURI = process.env.DB_URI;
 //mongoose to run the uri
 const connectToMongoDB = () => {
   mongoose
-  .connect(dbURI, 
-    { useUnifiedTopology:true, useNewUrlParser:true }
-  )
+  .connect(dbURI)
   .then(() => console.log('Connected to MongoDB...'))
   .catch((error) => {
     console.log('Error in connecting to mongoDB: ',error)
@@ -91,6 +89,14 @@ app.get('/', (req,res) => {
     res.status(200).render('index') 
   } catch (error) {
     res.status(404).send(`Error displaying homepage: ${error}`)
+  }
+})
+
+app.get('/aboutUs', (req,res) => {
+  try {
+    res.render('aboutUs')
+  } catch (error) {
+    console.log('Error loading About Us page: ',error)
   }
 })
 
