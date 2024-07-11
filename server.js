@@ -30,7 +30,7 @@ app.use(cors({
   allowedHeaders: process.env.CORS_ALLOWED_HEADERS,
 }));
 
-//security
+//security (CSP)
 app.use(async (req, res, next) => {
   try {
     // Set the Content-Security-Policy header

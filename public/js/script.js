@@ -15,5 +15,6 @@ $(document).ready(function(){let yearNow=new Date().getFullYear()
     return false
   })
 })
-var message=$('#message').text();var numberMessage=$('#numberMessage').text();if(message){alert(message)}
-if(numberMessage){alert(numberMessage)}
+var message=$('#message').text();var numberMessage=$('#numberMessage').text();if(message.length > 3){alert(message)}
+if(numberMessage.length > 3){alert(numberMessage)}
+
