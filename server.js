@@ -62,16 +62,23 @@ app.use(passport.session());
 
 //mongoDB URI
 const dbURI = process.env.DB_URI;
-//mongoose to run the uri
-const connectToMongoDB = () => {
-  mongoose
-  .connect(dbURI)
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch((error) => {
-    console.log('Error in connecting to mongoDB: ',error)
-  })
-}
-connectToMongoDB()
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Connected to MongoDB...');
+  } catch (error) {
+    console.log('Error in connecting to MongoDB: ', error);
+  }
+};
+
+const disconnectFromMongoDB = async () => {
+  try {
+    await mongoose.disconnect();
+    console.log('Disconnected from MongoDB...');
+  } catch (error) {
+    console.log('Error in disconnecting from MongoDB: ', error);
+  }
+};
 
 app.post('/send-email', (req,res) => {
   const {userEmail,userName,userNumber,userSelect,userEmailText} = req.body
@@ -163,6 +170,7 @@ passport.use(
     scope:['profile','email']
   }, async(accessToken, refreshToken, profile, done) => {
     try {
+      await connectToMongoDB();
       let user = await User.findOne({googleID:profile.id});
       if (!user) {
         user = new User({
@@ -172,6 +180,7 @@ passport.use(
         })
         await user.save();
       }
+      await disconnectFromMongoDB();
       return done(null,user)
     } catch (error) {
       console.log('Error logging in: ',error)
